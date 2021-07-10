@@ -2,6 +2,8 @@
 
 sweet-factory-frontend
 
+url: <https://sweet-factory-frontend.vercel.app/>
+
 ## Requirement
 
 - install pnpm
