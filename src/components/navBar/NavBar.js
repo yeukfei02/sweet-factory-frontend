@@ -1,10 +1,12 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-function NavBar(props) {
+function NavBar() {
   const history = useHistory();
 
-  const isUserLoggedIn = props.isUserLoggedIn;
+  const token = localStorage.getItem("token");
+  const isUserLoggedIn = token ? true : false;
+  console.log("isUserLoggedIn = ", isUserLoggedIn);
 
   const handleHomeIconClick = () => {
     history.push("/");
@@ -18,41 +20,13 @@ function NavBar(props) {
     history.push("/login");
   };
 
-  const renderNavBarItems = (isUserLoggedIn) => {
-    let navBarItems = (
-      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-        <li className="nav-item">
-          <div className="nav-link"></div>
-        </li>
-      </ul>
-    );
-
-    if (isUserLoggedIn) {
-      navBarItems = (
-        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item">
-            <div className="nav-link">Zones</div>
-          </li>
-
-          <li className="nav-item">
-            <div className="nav-link">Cities</div>
-          </li>
-
-          <li className="nav-item">
-            <div className="nav-link">Machines</div>
-          </li>
-
-          <li className="nav-item">
-            <div className="nav-link">Products</div>
-          </li>
-        </ul>
-      );
-    }
-
-    return navBarItems;
+  const handleLogoutClick = () => {
+    localStorage.clear();
+    history.push("/");
+    window.location.reload();
   };
 
-  const renderSignupAndLoginButton = (isUserLoggedIn) => {
+  const renderNavBarRightSideItems = (isUserLoggedIn) => {
     let resultDiv = (
       <form className="d-flex">
         <button
@@ -73,7 +47,17 @@ function NavBar(props) {
     );
 
     if (isUserLoggedIn) {
-      resultDiv = <div>username</div>;
+      resultDiv = (
+        <div className="d-flex flex-row align-items-center">
+          <button
+            className="btn btn-outline-danger mx-1"
+            type="button"
+            onClick={() => handleLogoutClick()}
+          >
+            Logout
+          </button>
+        </div>
+      );
     }
 
     return resultDiv;
@@ -83,7 +67,10 @@ function NavBar(props) {
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <div className="navbar-brand" onClick={() => handleHomeIconClick()}>
+          <div
+            className="navbar-brand custom-cursor"
+            onClick={() => handleHomeIconClick()}
+          >
             sweet-factory-frontend
           </div>
           <button
@@ -98,8 +85,12 @@ function NavBar(props) {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            {renderNavBarItems(isUserLoggedIn)}
-            {renderSignupAndLoginButton(isUserLoggedIn)}
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <div className="nav-link"></div>
+              </li>
+            </ul>
+            {renderNavBarRightSideItems(isUserLoggedIn)}
           </div>
         </div>
       </nav>

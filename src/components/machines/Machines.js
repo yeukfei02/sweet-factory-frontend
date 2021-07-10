@@ -5,19 +5,29 @@ import dayjs from "dayjs";
 
 import LeftSideMenu from "../leftSideMenu/LeftSideMenu";
 
-const GET_ZONES = gql`
-  query getZones {
-    getZones {
+const GET_MACHINES = gql`
+  query getMachines {
+    getMachines {
       message
-      zones {
+      machines {
         id
-        zone_name
+        machine_name
+        serial_number
         created_at
         updated_at
-        cities {
+        city {
           id
           city_name
           area
+          created_at
+          updated_at
+        }
+        products {
+          id
+          product_name
+          product_description
+          price
+          quantity
           created_at
           updated_at
         }
@@ -26,14 +36,14 @@ const GET_ZONES = gql`
   }
 `;
 
-function MainView() {
+function Machines() {
   const history = useHistory();
 
   const token = localStorage.getItem("token");
   const isUserLoggedIn = token ? true : false;
   console.log("isUserLoggedIn = ", isUserLoggedIn);
 
-  const { loading, error, data } = useQuery(GET_ZONES);
+  const { loading, error, data } = useQuery(GET_MACHINES);
 
   console.log("loading = ", loading);
   console.log("error = ", error);
@@ -66,21 +76,22 @@ function MainView() {
     return mainView;
   };
 
-  const handleCreateZoneButtonClick = () => {
-    history.push("/zones/create-zones");
+  const handleCreateMachinesButtonClick = () => {
+    history.push("/machines/create-machines");
   };
 
   const handleItemClick = (id) => {
-    history.push(`/zones/${id}`);
+    history.push(`/machines/${id}`);
   };
 
-  const renderZonesData = (data) => {
-    let zonesData = null;
+  const renderMachinesData = (data) => {
+    let machinesData = null;
 
-    if (data && data.getZones.zones) {
-      zonesData = data.getZones.zones.map((item, i) => {
+    if (data && data.getMachines.machines) {
+      machinesData = data.getMachines.machines.map((item, i) => {
         const id = item.id;
-        const zoneName = item.zone_name;
+        const machineName = item.machine_name;
+        const serialNumber = item.serial_number;
         const createdAt = dayjs(parseInt(item.created_at, 10)).format(
           "YYYY-MM-DD HH:mm:ss"
         );
@@ -91,7 +102,8 @@ function MainView() {
         return (
           <tr key={i} onClick={() => handleItemClick(id)}>
             <th scope="row">{id}</th>
-            <td>{zoneName}</td>
+            <td>{machineName}</td>
+            <td>{serialNumber}</td>
             <td>{createdAt}</td>
             <td>{updatedAt}</td>
           </tr>
@@ -99,7 +111,7 @@ function MainView() {
       });
     }
 
-    return zonesData;
+    return machinesData;
   };
 
   const renderResultView = () => {
@@ -112,9 +124,9 @@ function MainView() {
             <button
               type="submit"
               className="btn btn-outline-primary"
-              onClick={() => handleCreateZoneButtonClick()}
+              onClick={() => handleCreateMachinesButtonClick()}
             >
-              Create zones
+              Create machines
             </button>
           </div>
 
@@ -122,12 +134,13 @@ function MainView() {
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Zone name</th>
+                <th scope="col">Machine name</th>
+                <th scope="col">Serial number</th>
                 <th scope="col">Created at</th>
                 <th scope="col">Updated at</th>
               </tr>
             </thead>
-            <tbody>{renderZonesData(data)}</tbody>
+            <tbody>{renderMachinesData(data)}</tbody>
           </table>
         </div>
       );
@@ -139,4 +152,4 @@ function MainView() {
   return <div>{renderMainView(isUserLoggedIn)}</div>;
 }
 
-export default MainView;
+export default Machines;

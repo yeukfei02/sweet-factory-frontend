@@ -26,7 +26,7 @@ const GET_ZONES = gql`
   }
 `;
 
-function MainView() {
+function Zones() {
   const history = useHistory();
 
   const token = localStorage.getItem("token");
@@ -139,4 +139,4 @@ function MainView() {
   return <div>{renderMainView(isUserLoggedIn)}</div>;
 }
 
-export default MainView;
+export default Zones;

@@ -5,19 +5,19 @@ import dayjs from "dayjs";
 
 import LeftSideMenu from "../leftSideMenu/LeftSideMenu";
 
-const GET_ZONES = gql`
-  query getZones {
-    getZones {
+const GET_CITIES = gql`
+  query getCities {
+    getCities {
       message
-      zones {
+      cities {
         id
-        zone_name
+        city_name
+        area
         created_at
         updated_at
-        cities {
+        zone {
           id
-          city_name
-          area
+          zone_name
           created_at
           updated_at
         }
@@ -26,14 +26,14 @@ const GET_ZONES = gql`
   }
 `;
 
-function MainView() {
+function Cities() {
   const history = useHistory();
 
   const token = localStorage.getItem("token");
   const isUserLoggedIn = token ? true : false;
   console.log("isUserLoggedIn = ", isUserLoggedIn);
 
-  const { loading, error, data } = useQuery(GET_ZONES);
+  const { loading, error, data } = useQuery(GET_CITIES);
 
   console.log("loading = ", loading);
   console.log("error = ", error);
@@ -66,21 +66,22 @@ function MainView() {
     return mainView;
   };
 
-  const handleCreateZoneButtonClick = () => {
-    history.push("/zones/create-zones");
+  const handleCreateCitiesButtonClick = () => {
+    history.push("/cities/create-cities");
   };
 
   const handleItemClick = (id) => {
-    history.push(`/zones/${id}`);
+    history.push(`/cities/${id}`);
   };
 
-  const renderZonesData = (data) => {
-    let zonesData = null;
+  const renderCitiesData = (data) => {
+    let citiesData = null;
 
-    if (data && data.getZones.zones) {
-      zonesData = data.getZones.zones.map((item, i) => {
+    if (data && data.getCities.cities) {
+      citiesData = data.getCities.cities.map((item, i) => {
         const id = item.id;
-        const zoneName = item.zone_name;
+        const cityName = item.city_name;
+        const area = item.area;
         const createdAt = dayjs(parseInt(item.created_at, 10)).format(
           "YYYY-MM-DD HH:mm:ss"
         );
@@ -91,7 +92,8 @@ function MainView() {
         return (
           <tr key={i} onClick={() => handleItemClick(id)}>
             <th scope="row">{id}</th>
-            <td>{zoneName}</td>
+            <td>{cityName}</td>
+            <td>{area}</td>
             <td>{createdAt}</td>
             <td>{updatedAt}</td>
           </tr>
@@ -99,7 +101,7 @@ function MainView() {
       });
     }
 
-    return zonesData;
+    return citiesData;
   };
 
   const renderResultView = () => {
@@ -112,9 +114,9 @@ function MainView() {
             <button
               type="submit"
               className="btn btn-outline-primary"
-              onClick={() => handleCreateZoneButtonClick()}
+              onClick={() => handleCreateCitiesButtonClick()}
             >
-              Create zones
+              Create cities
             </button>
           </div>
 
@@ -122,12 +124,13 @@ function MainView() {
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Zone name</th>
+                <th scope="col">City name</th>
+                <th scope="col">Area</th>
                 <th scope="col">Created at</th>
                 <th scope="col">Updated at</th>
               </tr>
             </thead>
-            <tbody>{renderZonesData(data)}</tbody>
+            <tbody>{renderCitiesData(data)}</tbody>
           </table>
         </div>
       );
@@ -139,4 +142,4 @@ function MainView() {
   return <div>{renderMainView(isUserLoggedIn)}</div>;
 }
 
-export default MainView;
+export default Cities;
