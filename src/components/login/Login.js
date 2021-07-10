@@ -7,6 +7,7 @@ const LOGIN = gql`
     login(input: $input) {
       message
       token
+      user_id
     }
   }
 `;
@@ -49,6 +50,8 @@ function Login() {
 
     if (data && data.login) {
       localStorage.setItem("token", data.login.token);
+      localStorage.setItem("user_id", data.login.user_id.toString());
+
       loginSuccessAlert = (
         <div className="alert alert-success" role="alert">
           Login success

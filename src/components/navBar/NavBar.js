@@ -1,12 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { gql, useQuery } from "@apollo/client";
+
+const GET_USER_BY_ID = gql`
+  query getUserById($id: Int) {
+    getUserById(id: $id) {
+      message
+      user {
+        id
+        email
+        password
+        created_at
+        updated_at
+      }
+    }
+  }
+`;
 
 function NavBar() {
   const history = useHistory();
 
+  const [userEmail, setUserEmail] = useState("");
+
+  let userIdInt = 0;
+  const userIdStr = localStorage.getItem("user_id");
+  if (userIdStr) {
+    userIdInt = parseInt(userIdStr, 10);
+  }
+
+  const { loading, error, data } = useQuery(GET_USER_BY_ID, {
+    variables: { id: userIdInt },
+  });
+
+  console.log("loading = ", loading);
+  console.log("error = ", error);
+  console.log("data = ", data);
+
   const token = localStorage.getItem("token");
   const isUserLoggedIn = token ? true : false;
   console.log("isUserLoggedIn = ", isUserLoggedIn);
+
+  useEffect(() => {
+    if (data && data.getUserById) {
+      const userEmail = data.getUserById.user.email;
+      setUserEmail(userEmail);
+    }
+  }, [data]);
 
   const handleHomeIconClick = () => {
     history.push("/");
@@ -49,6 +88,7 @@ function NavBar() {
     if (isUserLoggedIn) {
       resultDiv = (
         <div className="d-flex flex-row align-items-center">
+          <div className="mx-2">{userEmail}</div>
           <button
             className="btn btn-outline-danger mx-1"
             type="button"
