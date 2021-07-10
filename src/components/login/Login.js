@@ -69,6 +69,7 @@ function Login() {
         {renderLoginSuccessAlert(data)}
 
         <div className="card p-5">
+          <h3 className="mb-3">Login</h3>
           <div className="form-floating mb-3">
             <input
               type="email"

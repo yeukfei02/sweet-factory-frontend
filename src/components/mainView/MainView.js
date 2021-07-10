@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 
+import image from "../../images/images.jpg";
 import LeftSideMenu from "../leftSideMenu/LeftSideMenu";
 
 const GET_ZONES = gql`
@@ -41,10 +42,17 @@ function MainView() {
 
   const renderMainView = (isUserLoggedIn) => {
     let mainView = (
-      <div className="d-flex justify-content-center my-5">
-        <h2>
+      <div className="d-flex flex-column justify-content-center align-items-center my-5">
+        <h2 className="mb-5">
           Sweet Factory is a platform to manage your sweet product and delivery
         </h2>
+        <img
+          src={image}
+          className="img-fluid"
+          alt=""
+          width="800"
+          height="600"
+        ></img>
       </div>
     );
 

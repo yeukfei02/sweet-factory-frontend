@@ -138,6 +138,10 @@ function CreateMachine() {
     }
   };
 
+  const handleBackButtonClick = () => {
+    history.push("/machines");
+  };
+
   const renderResultView = () => {
     let resultView = null;
 
@@ -182,6 +186,14 @@ function CreateMachine() {
               onClick={() => handleSubmitButtonClick()}
             >
               Submit
+            </button>
+
+            <button
+              type="submit"
+              className="btn btn-outline-success mx-3"
+              onClick={() => handleBackButtonClick()}
+            >
+              Back
             </button>
           </div>
         </div>

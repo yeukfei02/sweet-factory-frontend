@@ -71,7 +71,7 @@ function NavBar() {
             className="navbar-brand custom-cursor"
             onClick={() => handleHomeIconClick()}
           >
-            sweet-factory-frontend
+            Sweet Factory
           </div>
           <button
             className="navbar-toggler"

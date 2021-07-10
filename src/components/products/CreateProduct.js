@@ -224,6 +224,10 @@ function CreateProduct() {
     }
   };
 
+  const handleBackButtonClick = () => {
+    history.push("/products");
+  };
+
   const renderResultView = () => {
     let resultView = null;
 
@@ -296,6 +300,14 @@ function CreateProduct() {
               onClick={() => handleSubmitButtonClick()}
             >
               Submit
+            </button>
+
+            <button
+              type="submit"
+              className="btn btn-outline-success mx-3"
+              onClick={() => handleBackButtonClick()}
+            >
+              Back
             </button>
           </div>
         </div>

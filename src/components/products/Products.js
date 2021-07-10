@@ -39,39 +39,25 @@ const GET_PRODUCTS = gql`
 function Products() {
   const history = useHistory();
 
-  const token = localStorage.getItem("token");
-  const isUserLoggedIn = token ? true : false;
-  console.log("isUserLoggedIn = ", isUserLoggedIn);
-
   const { loading, error, data } = useQuery(GET_PRODUCTS);
 
   console.log("loading = ", loading);
   console.log("error = ", error);
   console.log("data = ", data);
 
-  const renderMainView = (isUserLoggedIn) => {
-    let mainView = (
-      <div className="d-flex justify-content-center my-5">
-        <h2>
-          Sweet Factory is a platform to manage your sweet product and delivery
-        </h2>
-      </div>
-    );
-
-    if (isUserLoggedIn) {
-      mainView = (
-        <div className="m-3">
-          <div className="row">
-            <div className="col-sm-3">
-              <LeftSideMenu />
-            </div>
-            <div className="col-sm-9">
-              <div className="my-1">{renderResultView()}</div>
-            </div>
+  const renderMainView = () => {
+    const mainView = (
+      <div className="m-3">
+        <div className="row">
+          <div className="col-sm-3">
+            <LeftSideMenu />
+          </div>
+          <div className="col-sm-9">
+            <div className="my-1">{renderResultView()}</div>
           </div>
         </div>
-      );
-    }
+      </div>
+    );
 
     return mainView;
   };
@@ -155,7 +141,7 @@ function Products() {
     return resultView;
   };
 
-  return <div>{renderMainView(isUserLoggedIn)}</div>;
+  return <div>{renderMainView()}</div>;
 }
 
 export default Products;

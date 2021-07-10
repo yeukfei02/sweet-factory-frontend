@@ -133,6 +133,10 @@ function CreateCity() {
     }
   };
 
+  const handleBackButtonClick = () => {
+    history.push("/cities");
+  };
+
   const renderResultView = () => {
     let resultView = null;
 
@@ -177,6 +181,14 @@ function CreateCity() {
               onClick={() => handleSubmitButtonClick()}
             >
               Submit
+            </button>
+
+            <button
+              type="submit"
+              className="btn btn-outline-success mx-3"
+              onClick={() => handleBackButtonClick()}
+            >
+              Back
             </button>
           </div>
         </div>

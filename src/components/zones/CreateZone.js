@@ -73,6 +73,10 @@ function CreateZone() {
     }
   };
 
+  const handleBackButtonClick = () => {
+    history.push("/zones");
+  };
+
   const renderResultView = () => {
     let resultView = null;
 
@@ -98,6 +102,14 @@ function CreateZone() {
               onClick={() => handleSubmitButtonClick()}
             >
               Submit
+            </button>
+
+            <button
+              type="submit"
+              className="btn btn-outline-success mx-3"
+              onClick={() => handleBackButtonClick()}
+            >
+              Back
             </button>
           </div>
         </div>
