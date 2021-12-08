@@ -13,7 +13,7 @@ url: <https://sweet-factory-frontend.vercel.app/>
 
 ```zsh
 // install node dependencies
-$ pnpm
+$ pnpm install
 
 // development
 $ pnpm run start

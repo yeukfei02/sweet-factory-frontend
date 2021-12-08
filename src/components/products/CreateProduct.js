@@ -201,13 +201,17 @@ function CreateProduct() {
   };
 
   const handleSubmitButtonClick = () => {
+    const userId = localStorage.getItem("user_id");
+    const userIdInt = userId ? parseInt(userId, 10) : 0;
+
     if (
       productName &&
       productDescription &&
       price > 0 &&
       quantity > 0 &&
       cityId > 0 &&
-      machineId > 0
+      machineId > 0 &&
+      userIdInt > 0
     ) {
       createMachine({
         variables: {
@@ -218,6 +222,7 @@ function CreateProduct() {
             quantity: quantity,
             city_id: cityId,
             machine_id: machineId,
+            user_id: userIdInt,
           },
         },
       });

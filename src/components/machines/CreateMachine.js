@@ -125,13 +125,17 @@ function CreateMachine() {
   };
 
   const handleSubmitButtonClick = () => {
-    if (machineName && serialNumber && cityId > 0) {
+    const userId = localStorage.getItem("user_id");
+    const userIdInt = userId ? parseInt(userId, 10) : 0;
+
+    if (machineName && serialNumber && cityId > 0 && userIdInt > 0) {
       createMachine({
         variables: {
           input: {
             machine_name: machineName,
             serial_number: serialNumber,
             city_id: cityId,
+            user_id: userIdInt,
           },
         },
       });

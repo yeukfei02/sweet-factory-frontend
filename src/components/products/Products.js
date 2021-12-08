@@ -39,7 +39,12 @@ const GET_PRODUCTS = gql`
 function Products() {
   const history = useHistory();
 
-  const { loading, error, data } = useQuery(GET_PRODUCTS);
+  const userId = localStorage.getItem("user_id");
+  const userIdInt = userId ? parseInt(userId, 10) : 0;
+
+  const { loading, error, data } = useQuery(GET_PRODUCTS, {
+    variables: { user_id: userIdInt },
+  });
 
   console.log("loading = ", loading);
   console.log("error = ", error);
