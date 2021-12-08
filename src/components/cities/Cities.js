@@ -29,7 +29,12 @@ const GET_CITIES = gql`
 function Cities() {
   const history = useHistory();
 
-  const { loading, error, data } = useQuery(GET_CITIES);
+  const userId = localStorage.getItem("user_id");
+  const userIdInt = userId ? parseInt(userId, 10) : 0;
+
+  const { loading, error, data } = useQuery(GET_CITIES, {
+    variables: { user_id: userIdInt },
+  });
 
   console.log("loading = ", loading);
   console.log("error = ", error);

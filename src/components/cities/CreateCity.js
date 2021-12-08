@@ -124,10 +124,18 @@ function CreateCity() {
   };
 
   const handleSubmitButtonClick = () => {
-    if (cityName && area && zoneId > 0) {
+    const userId = localStorage.getItem("user_id");
+    const userIdInt = userId ? parseInt(userId, 10) : 0;
+
+    if (cityName && area && zoneId > 0 && userIdInt > 0) {
       createCity({
         variables: {
-          input: { city_name: cityName, area: area, zone_id: zoneId },
+          input: {
+            city_name: cityName,
+            area: area,
+            zone_id: zoneId,
+            user_id: userIdInt,
+          },
         },
       });
     }

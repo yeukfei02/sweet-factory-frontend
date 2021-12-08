@@ -64,10 +64,13 @@ function CreateZone() {
   };
 
   const handleSubmitButtonClick = () => {
-    if (zoneName) {
+    const userId = localStorage.getItem("user_id");
+    const userIdInt = userId ? parseInt(userId, 10) : 0;
+
+    if (zoneName && userIdInt > 0) {
       createZone({
         variables: {
-          input: { zone_name: zoneName },
+          input: { zone_name: zoneName, user_id: userIdInt },
         },
       });
     }
