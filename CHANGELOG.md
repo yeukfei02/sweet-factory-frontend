@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/yeukfei02/sweet-factory-frontend/compare/v0.1.1...v0.1.2) (2021-12-08)
+
+
+### Features
+
+* 🎸 add semgrep.yml ([b0cdb5b](https://github.com/yeukfei02/sweet-factory-frontend/commit/b0cdb5b50cc31e4c8d9a6e718a6d3f81875c5250))
+* 🎸 add user_id for create and get list api ([cb2af1b](https://github.com/yeukfei02/sweet-factory-frontend/commit/cb2af1b370444394d617664cb2020daac0dfc1da))
+
+
+### Bug Fixes
+
+* 🐛 add useremail in navbar ([83c3f2c](https://github.com/yeukfei02/sweet-factory-frontend/commit/83c3f2cb0c3469d27931ac089f9b120df1d7f8a1))
+
 ### 0.1.1 (2021-07-10)
 
 
